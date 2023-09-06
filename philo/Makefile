@@ -6,7 +6,7 @@
 #    By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/16 18:33:29 by kquetat-          #+#    #+#              #
-#    Updated: 2023/08/30 13:02:59 by kquetat-         ###   ########.fr        #
+#    Updated: 2023/09/06 19:10:14 by kquetat-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,8 @@ CHAMPAGNE	=	\033[38;5;224m
 SRC_PATH	=	./src/
 
 SRC			=	${addprefix ${SRC_PATH}, main.c \
+											addl_tools.c \
+											init_arg.c \
 											init_struct.c \
 											time.c}
 

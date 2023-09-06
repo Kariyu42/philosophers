@@ -6,42 +6,44 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 16:27:24 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/08/30 14:25:09 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/06 19:40:07 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <limits.h>
 
-int	ft_atoi(char *nbr)
+int	init_philo(t_philo *philo, t_settings *conf)
 {
 	int	i;
-	int	res;
 
 	i = -1;
-	while (nbr[++i])
-		res = res * 10 + (nbr[i] - '0');
-	return (res);
-}
-
-bool	is_numeric(char *nbr)
-{
-	long	i;
-	long	res;
-
-	i = -1;
-	while (nbr[++i])
+	philo = ft_calloc(conf->nbr_philo, sizeof(t_philo));
+	while (++i < conf->nbr_philo)
 	{
-		if (nbr[i] < '0' || nbr[i] > '9')
-			return (false);
-		res = res * 10 + (nbr[i] - '0');
-		if (res > INT_MAX)
-			return (false);
+		philo[i].id = i + 1;
+		philo[i].eat_nb = 0;
+		philo[i].last_ate = 0;
+		philo[i].conf = conf;
 	}
-	return (true);
+	return (SUCCEED);
 }
 
-void	set_up(t_settings *config, int ac, char **av)
+int	init_mutex(t_settings *conf)
+{
+	int	i;
+
+	i = -1;
+	conf->mutex = ft_calloc(conf->nbr_philo, sizeof(t_fork));
+	while (++i < conf->nbr_philo)
+	{
+		conf->mutex[i].id = i + 1;
+		if (pthread_mutex_init(&(conf->mutex[i].fork), NULL) != SUCCEED)
+			return (EXIT_FAILURE);
+	}
+	return (SUCCEED);
+}
+
+void	set_up_configs(t_settings *config, int ac, char **av)
 {
 	config->nbr_philo = ft_atoi(av[1]);
 	config->time_death = ft_atoi(av[2]);
