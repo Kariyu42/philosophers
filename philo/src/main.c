@@ -6,11 +6,12 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 17:39:24 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/06 19:36:29 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/07 14:53:25 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include "error.h"
 
 bool	valid_argument(int ac, char **av)
 {
@@ -21,7 +22,7 @@ bool	valid_argument(int ac, char **av)
 	{
 		if (is_numeric(av[i]) == false)
 		{
-			write(STDERR_FILENO, USG_ERR, 35);
+			putendl_error(USG_ERR);
 			return (false);
 		}
 	}
@@ -34,7 +35,12 @@ static bool	handle_arg(int ac, char **av, t_settings **conf, t_philo **philo)
 {
 	*conf = ft_calloc(1, sizeof(t_settings));
 	set_up_configs(*conf, ac, av);
-	if (init_mutex(*conf) != SUCCEED || init_philo(*philo, *conf) != SUCCEED)
+	if (init_mutex(*conf) != SUCCEED)
+	{
+		putendl_error(INIT_ERR);
+		return (false);
+	}
+	if (init_philo(*philo, *conf) != SUCCEED)
 		return (false);
 	return (true);
 }
@@ -72,6 +78,6 @@ int	main(int ac, char **av)
 // * ./philo [no. of philosopher] [time to die] [time to eat]
 // *[time to sleep] [no. of times each philosopher must eat]
 //TODO create the forks (mutex) ✅
-// TODO initialize philo
+// TODO initialize philo ✅
 // TODO lay out how tthe simulation will work
 // TODO create functions to start simulation
