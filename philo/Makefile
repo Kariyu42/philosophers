@@ -6,7 +6,7 @@
 #    By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/16 18:33:29 by kquetat-          #+#    #+#              #
-#    Updated: 2023/09/06 19:10:14 by kquetat-         ###   ########.fr        #
+#    Updated: 2023/09/07 22:06:38 by kquetat-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,10 @@ SRC_PATH	=	./src/
 
 SRC			=	${addprefix ${SRC_PATH}, main.c \
 											addl_tools.c \
-											init_arg.c \
+											error.c \
+											handle_arg.c \
 											init_struct.c \
+											routine.c \
 											time.c}
 
 OBJ			=	${SRC:.c=.o}
