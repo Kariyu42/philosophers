@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:37:36 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/07 22:11:37 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/08 11:02:36 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct	s_philo
 	pthread_t			thread;
 }	t_philo;
 
-/* ----------------------- init_func / time ------------------------- */
+/* --- init_func / time --- */
 void	set_up_configs(t_settings *config, int ac, char **av);
 time_t	get_time(void);
 bool	valid_argument(int ac, char **av);
@@ -57,7 +57,8 @@ bool	handle_arg(int ac, char **av, t_settings **conf, t_philo **philo);
 int		init_mutex(t_settings *conf);
 int		init_philo(t_philo *philo, t_settings *conf);
 
-/* ----------------------- addl tools -----------------------*/
+/* --- addl tools ---*/
 void	*ft_calloc(size_t count, size_t size);
 bool	is_numeric(char *nbr);
 int		ft_atoi(char *nbr);
+int		ft_usleep(size_t milliseconds);

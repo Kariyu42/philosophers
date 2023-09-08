@@ -6,12 +6,22 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 18:22:42 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/06 18:51:38 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/08 10:46:13 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <limits.h>
+
+int	ft_usleep(size_t milliseconds)
+{
+	size_t	start;
+
+	start = get_current_time();
+	while ((get_current_time() - start) < milliseconds)
+		usleep(500);
+	return (0);
+}
 
 int	ft_atoi(char *nbr)
 {

@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   simulation.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/30 12:28:12 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/08 08:47:05 by kquetat-         ###   ########.fr       */
+/*   Created: 2023/09/08 10:59:57 by kquetat-          #+#    #+#             */
+/*   Updated: 2023/09/08 11:56:32 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	put_timestamp(time_t origin, time_t current)
+typedef enum e_type
 {
-	time_t	res;
+	LEFT,
+	FIRST,
+	RIGHT,
+	FAILED,
+	FORK,
+	EAT,
+	SLEEP,
+	THINK
+}	t_type;
 
-	res = current - origin;
-	printf("%d ", res);
-}
+/* --- routine threads --- */
+void	*routine(t_philo *philo);
+void	take_fork(t_philo *philo, int hand);
 
-time_t	get_time(void)
-{
-	struct timeval	tp;
-
-	if (gettimeofday(&tp, NULL) == -1)
-		return (EXIT_FAILURE);
-	return ((tp.tv_sec * 1000) + (tp.tv_usec / 1000));
-}
+/* --- print status ---*/
+void	print_status(int philo_id, int status);

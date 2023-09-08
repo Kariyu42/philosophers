@@ -6,11 +6,12 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 16:27:24 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/07 21:53:22 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/08 11:40:18 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include "simulation.h"
 
 int	init_philo(t_philo *philo, t_settings *conf)
 {
@@ -20,7 +21,7 @@ int	init_philo(t_philo *philo, t_settings *conf)
 	philo = ft_calloc(conf->nbr_philo, sizeof(t_philo));
 	while (++i < conf->nbr_philo)
 	{
-		if (pthread_create(&(philo[i].thread), NULL, &task, NULL) != SUCCEED)
+		if (pthread_create(&(philo[i].thread), NULL, &routine, philo) != 0)
 			return (EXIT_FAILURE);
 		philo[i].id = i + 1;
 		philo[i].eat_nb = 0;
@@ -39,7 +40,7 @@ int	init_mutex(t_settings *conf)
 	while (++i < conf->nbr_philo)
 	{
 		conf->mutex[i].id = i + 1;
-		if (pthread_mutex_init(&(conf->mutex[i].fork), NULL) != SUCCEED)
+		if (pthread_mutex_init(&(conf->mutex[i].fork), NULL) != 0)
 			return (EXIT_FAILURE);
 	}
 	return (SUCCEED);

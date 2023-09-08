@@ -6,12 +6,27 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 17:39:24 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/07 22:13:18 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/08 10:43:32 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include "error.h"
+
+// watcher
+static void	begin_simulation(t_philo **philo)
+{
+	int	i;
+
+	i = 0;
+	while (1)
+	{
+		if ()
+		i++;
+		if (i == philo[i]->conf->nbr_philo)
+			i = 0;
+	}
+}
 
 static int	init_prog(int ac, char **av)
 {
@@ -24,7 +39,7 @@ static int	init_prog(int ac, char **av)
 		return (EXIT_FAILURE);
 	if (handle_arg(ac, av, &conf, &philo) == false)
 		return (EXIT_FAILURE);
-	//begin_simulation();
+	begin_simulation(&philo);
 	// * begin the simulation. {}
 		// ? How should I free if simulation ends or fails.
 	return (SUCCEED);

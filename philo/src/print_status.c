@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   print_status.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/30 12:28:12 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/08 08:47:05 by kquetat-         ###   ########.fr       */
+/*   Created: 2023/09/08 11:48:17 by kquetat-          #+#    #+#             */
+/*   Updated: 2023/09/08 12:10:00 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	put_timestamp(time_t origin, time_t current)
+#include "simulation.h"
+/*
+? Should the messages be protected by mutexes.
+TODO must try on the go...
+*/
+void	print_status(int philo_id, int status)
 {
-	time_t	res;
-
-	res = current - origin;
-	printf("%d ", res);
-}
-
-time_t	get_time(void)
-{
-	struct timeval	tp;
-
-	if (gettimeofday(&tp, NULL) == -1)
-		return (EXIT_FAILURE);
-	return ((tp.tv_sec * 1000) + (tp.tv_usec / 1000));
+	if (status == FORK)
+		printf("%d has taken a fork\n", philo_id);
+	else if (status == EAT)
+		printf("%d is eating\n", philo_id);
+	else if (status == SLEEP)
+		printf("%d is sleeping\n", philo_id);
+	else if (status == THINK)
+		printf("%d is thinking\n", philo_id);
 }
