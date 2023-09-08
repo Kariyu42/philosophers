@@ -6,18 +6,15 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:28:12 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/08 08:47:05 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/08 14:24:18 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	put_timestamp(time_t origin, time_t current)
+time_t	timestamp(time_t origin, time_t current)
 {
-	time_t	res;
-
-	res = current - origin;
-	printf("%d ", res);
+	return (current - origin);
 }
 
 time_t	get_time(void)

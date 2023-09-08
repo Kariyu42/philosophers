@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:37:36 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/08 11:02:36 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/08 14:56:41 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,6 @@
 # define COR_ARG 5
 # define ADDL_ARG 6
 
-typedef struct	s_fork
-{
-	int				id;
-	pthread_mutex_t	fork;
-}	t_fork;
-
 typedef struct	s_settings
 {
 	int				nbr_philo;
@@ -37,7 +31,9 @@ typedef struct	s_settings
 	time_t			time_sleep;
 	int				food_limit;
 	time_t			base_time;
-	struct s_fork	*mutex;
+	pthread_mutex_t	*fork;
+	pthread_mutex_t	put_status;
+	pthread_mutex_t	meal_lock;
 }	t_settings;
 
 typedef struct	s_philo
@@ -51,11 +47,12 @@ typedef struct	s_philo
 
 /* --- init_func / time --- */
 void	set_up_configs(t_settings *config, int ac, char **av);
-time_t	get_time(void);
 bool	valid_argument(int ac, char **av);
 bool	handle_arg(int ac, char **av, t_settings **conf, t_philo **philo);
 int		init_mutex(t_settings *conf);
 int		init_philo(t_philo *philo, t_settings *conf);
+time_t	get_time(void);
+time_t	timestamp(time_t origin, time_t current);
 
 /* --- addl tools ---*/
 void	*ft_calloc(size_t count, size_t size);

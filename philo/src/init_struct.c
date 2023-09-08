@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 16:27:24 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/08 11:40:18 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/08 14:57:44 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,16 @@ int	init_mutex(t_settings *conf)
 	int	i;
 
 	i = -1;
-	conf->mutex = ft_calloc(conf->nbr_philo, sizeof(t_fork));
+	conf->fork = ft_calloc(conf->nbr_philo, sizeof(pthread_mutex_t));
 	while (++i < conf->nbr_philo)
 	{
-		conf->mutex[i].id = i + 1;
-		if (pthread_mutex_init(&(conf->mutex[i].fork), NULL) != 0)
+		if (pthread_mutex_init(&(conf->fork[i]), NULL) != 0)
 			return (EXIT_FAILURE);
 	}
+	if (pthread_mutex_init(&conf->put_status, NULL))
+		return (EXIT_FAILURE);
+	if (pthread_mutex_init(&conf->meal_lock, NULL))
+		return (EXIT_FAILURE);
 	return (SUCCEED);
 }
 

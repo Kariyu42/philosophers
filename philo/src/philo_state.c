@@ -6,39 +6,34 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 12:07:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/08 12:10:32 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/08 14:56:56 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include "error.h"
 #include "simulation.h"
 
 int	lock_fork(pthread_mutex_t *fork)
 {
 	if (pthread_mutex_lock(fork) != SUCCEED)
+	{
+		putendl_error(LOCK_ERR);
 		return (FAILED);
+	}
 	return (SUCCEED);
 }
 
 void	take_fork(t_philo *philo, int hand)
 {
-	int	last;
+	time_t	time;
+	int		last;
 
 	last = philo->conf->nbr_philo;
 	if (hand == LEFT)
-	{
-		lock_fork(&philo->conf->mutex[philo->id]);
-		// pthread_mutex_unlock(&philo->conf->mutex[philo->id]);
-	}
+		lock_fork(&philo->conf->fork[philo->id - 1]);
 	else if (hand == RIGHT)
-	{
-		if (philo->id == FIRST)
-			lock_fork(&philo->conf->mutex[last]);
-		else if (philo->id == last)
-			lock_fork(&philo->conf->mutex[FIRST]);
-		else
-			lock_fork(&philo->conf->mutex[philo->id - 1]);
-		//pthread_mutex_unlock();
-	}
-	print_status(philo->id, FORK);
+		lock_fork(&philo->conf->fork[philo->id % philo->conf->nbr_philo]);
+	time = timestamp(philo->conf->base_time, gettime());
+	print_status(time, philo, philo->id, FORK);
 }
