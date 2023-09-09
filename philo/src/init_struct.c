@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 16:27:24 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/08 14:57:44 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/09 13:46:54 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,7 @@ void	set_up_configs(t_settings *config, int ac, char **av)
 	config->time_sleep = ft_atoi(av[4]);
 	if (ac == ADDL_ARG)
 		config->food_limit = ft_atoi(av[5]);
+	else
+		config->food_limit = 0;
 	config->base_time = get_time();
 }

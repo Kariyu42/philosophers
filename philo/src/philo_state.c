@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 12:07:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/09 13:09:06 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/09 13:48:30 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	eat(t_philo *philo)
 {
 	time_t	time;
 
+	if (philo->conf->food_limit > 0)
+		philo->eat_nb++;
 	time = timestamp(philo->conf->base_time, gettime());
 	print_status(time, philo, philo->id, EAT);
 	pthread_mutex_lock(&philo->conf->meal_lock);

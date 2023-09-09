@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:37:36 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/08 14:56:41 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/09 13:45:30 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 typedef struct	s_settings
 {
 	int				nbr_philo;
+	int				food_limit;
 	time_t			time_death;
 	time_t			time_eat;
 	time_t			time_sleep;
-	int				food_limit;
 	time_t			base_time;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	put_status;
