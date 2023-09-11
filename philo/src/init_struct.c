@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 16:27:24 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/09 20:16:18 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/11 13:50:18 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	init_philo(t_philo *philo, t_settings *conf)
 		philo[i].eat_nb = 0;
 		philo[i].last_ate = 0;
 		philo[i].conf = conf;
-		if (pthread_create(&(philo[i].thread), NULL, &routine, philo) != 0)
+		if (pthread_create(&(philo[i].thread), NULL, &routine, (void *)philo) != 0)
 			return (EXIT_FAILURE);
 	}
 	return (SUCCEED);

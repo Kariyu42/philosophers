@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 18:22:42 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/08 10:46:13 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/11 14:02:55 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	ft_usleep(size_t milliseconds)
 {
 	size_t	start;
 
-	start = get_current_time();
-	while ((get_current_time() - start) < milliseconds)
+	start = get_time();
+	while ((get_time() - start) < milliseconds)
 		usleep(500);
 	return (0);
 }
@@ -40,6 +40,7 @@ bool	is_numeric(char *nbr)
 	long	res;
 
 	i = -1;
+	res = 0;
 	while (nbr[++i])
 	{
 		if (nbr[i] < '0' || nbr[i] > '9')

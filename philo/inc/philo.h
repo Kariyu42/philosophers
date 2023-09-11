@@ -6,10 +6,12 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:37:36 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/09 13:45:30 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/11 13:40:22 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef PHILO_H
+# define PHILO_H
 /* ---------------------------- libraries ------------------------------ */
 # include <stdio.h>
 # include <unistd.h>
@@ -59,3 +61,5 @@ void	*ft_calloc(size_t count, size_t size);
 bool	is_numeric(char *nbr);
 int		ft_atoi(char *nbr);
 int		ft_usleep(size_t milliseconds);
+
+#endif

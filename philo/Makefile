@@ -6,7 +6,7 @@
 #    By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/16 18:33:29 by kquetat-          #+#    #+#              #
-#    Updated: 2023/09/07 22:06:38 by kquetat-         ###   ########.fr        #
+#    Updated: 2023/09/11 13:51:03 by kquetat-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,8 @@ SRC			=	${addprefix ${SRC_PATH}, main.c \
 											error.c \
 											handle_arg.c \
 											init_struct.c \
+											philo_state.c \
+											print_status.c \
 											routine.c \
 											time.c}
 
@@ -35,7 +37,7 @@ OBJ			=	${SRC:.c=.o}
 
 # ------------------------------ COMPILER ------------------------------ #
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror -lpthread
+CFLAGS		=	-Wall -Wextra -Werror -pthread
 
 HEADER		=	./inc/
 

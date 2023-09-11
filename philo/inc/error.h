@@ -6,10 +6,12 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:14:02 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/08 12:20:08 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/11 13:40:50 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef ERROR_H
+# define ERROR_H
 #include "philo.h"
 
 /* --- init message --- */
@@ -24,3 +26,5 @@
 
 /* ----------------------- error ------------------------- */
 void	putendl_error(char *error);
+
+#endif

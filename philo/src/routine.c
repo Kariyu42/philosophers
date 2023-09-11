@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 21:55:38 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/09 13:09:02 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/11 13:49:23 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,33 @@
 #include "error.h"
 #include "simulation.h"
 
-void	*routine(t_philo *philo)
+// watcher
+// static void	check_status(t_philo **philo)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (1)
+// 	{
+// 		if (check_philo_status(philo[i]) == DEAD)
+// 		{
+// 			// * print that philo dies
+// 			// * free all table structure.
+// 			// TODO figure how to structure the watcher.
+// 		}
+// 		// i++;
+// 		// if (i == philo[i]->conf->nbr_philo)
+// 		// i = 0;
+// 	}
+// }
+// ! place a watcher that will be in charge of analyzing the status of philo
+// ! if one dies or are they done eating (if we add an additional argument)?
+// TODO
+
+void	*routine(void *caca)
 {
-	if (philo->id % 2 == 0) // if philo is pair wait time to eat...
+	t_philo	*philo = (t_philo *)caca;
+	if (philo->id % 2 == 0)
 		ft_usleep(philo->conf->time_eat);
 	while (1)
 	{
@@ -26,4 +50,5 @@ void	*routine(t_philo *philo)
 		take_nap(philo);
 		thinks(philo);
 	}
+	return (NULL);
 }

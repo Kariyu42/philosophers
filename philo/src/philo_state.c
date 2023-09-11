@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 12:07:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/09 13:48:30 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/11 13:52:31 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,17 @@ void	eat(t_philo *philo)
 {
 	time_t	time;
 
-	if (philo->conf->food_limit > 0)
+	if (philo->conf->food_limit)
 		philo->eat_nb++;
-	time = timestamp(philo->conf->base_time, gettime());
+	time = timestamp(philo->conf->base_time, get_time());
 	print_status(time, philo, philo->id, EAT);
 	pthread_mutex_lock(&philo->conf->meal_lock);
 	philo->last_ate = time;
 	pthread_mutex_unlock(&philo->conf->meal_lock);
 	ft_usleep(philo->conf->time_eat);
+	pthread_mutex_unlock(&philo->conf->fork[philo->id % \
+		philo->conf->nbr_philo]);
 	pthread_mutex_unlock(&philo->conf->fork[philo->id - 1]);
-	pthread_mutex_unlock(&philo->conf->fork[philo->id % philo->conf->nbr_philo]);
 }
 
 int	lock_fork(pthread_mutex_t *fork)
@@ -61,13 +62,13 @@ int	lock_fork(pthread_mutex_t *fork)
 void	take_fork(t_philo *philo, int hand)
 {
 	time_t	time;
-	int		last;
+	int		total;
 
-	last = philo->conf->nbr_philo;
+	total = philo->conf->nbr_philo;
 	if (hand == LEFT)
-		lock_fork(&philo->conf->fork[philo->id - 1]);
+		lock_fork(&philo->conf->fork[philo->id % total]);
 	else if (hand == RIGHT)
-		lock_fork(&philo->conf->fork[philo->id % philo->conf->nbr_philo]);
-	time = timestamp(philo->conf->base_time, gettime());
+		lock_fork(&philo->conf->fork[philo->id - 1]);
+	time = timestamp(philo->conf->base_time, get_time());
 	print_status(time, philo, philo->id, FORK);
 }
