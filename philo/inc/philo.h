@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:37:36 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/11 13:40:22 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/12 14:24:07 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ typedef struct	s_philo
 }	t_philo;
 
 /* --- init_func / time --- */
-void	set_up_configs(t_settings *config, int ac, char **av);
+void	set_up_configs(t_settings **config, int ac, char **av);
 bool	valid_argument(int ac, char **av);
 bool	handle_arg(int ac, char **av, t_settings **conf, t_philo **philo);
-int		init_mutex(t_settings *conf);
-int		init_philo(t_philo *philo, t_settings *conf);
+int		init_mutex(t_settings **conf);
+t_philo	*init_philo(t_settings *conf);
 time_t	get_time(void);
 time_t	timestamp(time_t origin, time_t current);
 
