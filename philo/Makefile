@@ -6,7 +6,7 @@
 #    By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/16 18:33:29 by kquetat-          #+#    #+#              #
-#    Updated: 2023/09/12 13:43:07 by kquetat-         ###   ########.fr        #
+#    Updated: 2023/09/16 05:13:22 by kquetat-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,11 @@ OBJ			=	${SRC:.c=.o}
 
 # ------------------------------ COMPILER ------------------------------ #
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror -pthread -fsanitize=address -g3
+CFLAGS		=	-Wall -Wextra -Werror -pthread
+
+ifdef	DEBUG
+	CFLAGS	+=	-fsanitize=address -g3
+endif
 
 HEADER		=	./inc/
 
@@ -50,6 +54,9 @@ all:	${NAME}
 
 ${NAME}:	${OBJ}
 	${CC} ${CFLAGS} ${OBJ} -o ${NAME}
+
+debug:
+	${MAKE} DEBUG=1
 
 clean:
 	rm -f ${OBJ}

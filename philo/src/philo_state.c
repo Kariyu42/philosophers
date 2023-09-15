@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 12:07:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/12 13:13:01 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/16 06:45:50 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	thinks(t_philo *philo)
 {
 	time_t	time;
 
+	time = 0;
 	time = timestamp(philo->conf->base_time, get_time());
 	print_status(time, philo, philo->id, THINK);
 	ft_usleep(philo->conf->time_sleep);
@@ -27,6 +28,7 @@ void	take_nap(t_philo *philo)
 {
 	time_t	time;
 
+	time = 0;
 	time = timestamp(philo->conf->base_time, get_time());
 	print_status(time, philo, philo->id, SLEEP);
 	ft_usleep(philo->conf->time_sleep);
@@ -36,6 +38,7 @@ void	eat(t_philo *philo)
 {
 	time_t	time;
 
+	time = 0;
 	if (philo->conf->food_limit)
 		philo->eat_nb++;
 	time = timestamp(philo->conf->base_time, get_time());

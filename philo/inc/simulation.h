@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 10:59:57 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/12 13:02:24 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/13 19:00:37 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	take_fork(t_philo *philo, int hand);
 void	eat(t_philo *philo);
 void	take_nap(t_philo *philo);
 void	thinks(t_philo *philo);
-int		simulation_watcher(t_philo **philo);
+int		simulation_watcher(t_philo *philo);
 
 /* --- print status ---*/
 void	print_status(time_t time, t_philo *philo, int philo_id, int status);

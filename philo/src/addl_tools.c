@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 18:22:42 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/12 13:12:59 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/16 05:49:08 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	ft_atoi(char *nbr)
 	int	res;
 
 	i = -1;
+	res = 0;
 	while (nbr[++i])
 		res = res * 10 + (nbr[i] - '0');
 	return (res);

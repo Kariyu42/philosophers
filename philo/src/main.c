@@ -6,29 +6,13 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 17:39:24 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/12 14:20:54 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/16 04:38:01 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include "simulation.h"
 #include "error.h"
-
-t_settings	*handle_settings(int ac, char **av)
-{
-	t_settings	*config;
-
-	config = ft_calloc(1, sizeof(t_settings));
-	config->nbr_philo = ft_atoi(av[1]);
-	config->time_death = ft_atoi(av[2]);
-	config->time_eat = ft_atoi(av[3]);
-	config->time_sleep = ft_atoi(av[4]);
-	if (ac == ADDL_ARG)
-		config->food_limit = ft_atoi(av[5]);
-	else
-		config->food_limit = 0;
-	config->base_time = get_time();
-}
 
 static int	init_prog(int ac, char **av)
 {
@@ -43,12 +27,12 @@ static int	init_prog(int ac, char **av)
 	if (init_mutex(conf) != SUCCEED)
 	{
 		putendl_error(MUTEX_ERR);
-		return (false);
+		return (EXIT_FAILURE);
 	}
 	philo = init_philo(conf);
 	if (!philo)
 		return (EXIT_FAILURE);
-	if (simulation_watcher(&philo) == 0)
+	if (simulation_watcher(philo) == 0)
 		return (SUCCEED);
 	return (SUCCEED);
 }
