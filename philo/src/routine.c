@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 21:55:38 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/16 06:44:45 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/17 09:58:18 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	simulation_watcher(t_philo *philo)
 			break ;
 		}
 		i++;
-		if (i == philo->conf->nbr_philo)
+		if (i == philo->conf->nbr_philo + 1)
 			i = 1;
 	}
 	return (0);

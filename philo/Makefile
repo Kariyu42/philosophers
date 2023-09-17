@@ -6,7 +6,7 @@
 #    By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/16 18:33:29 by kquetat-          #+#    #+#              #
-#    Updated: 2023/09/16 05:13:22 by kquetat-         ###   ########.fr        #
+#    Updated: 2023/09/17 09:19:58 by kquetat-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC_PATH	=	./src/
 SRC			=	${addprefix ${SRC_PATH}, main.c \
 											addl_tools.c \
 											error.c \
+											fork_lock.c \
 											handle_arg.c \
 											init_struct.c \
 											philo_state.c \

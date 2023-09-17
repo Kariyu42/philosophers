@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 10:59:57 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/13 19:00:37 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/17 09:20:53 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 typedef enum e_type
 {
 	TIMEOUT,
-	LEFT,
 	FIRST,
+	LEFT,
 	RIGHT,
 	FAILED,
 	FORK,
@@ -32,6 +32,8 @@ typedef enum e_type
 /* --- routine threads --- */
 void	*routine(void *caca);
 void	take_fork(t_philo *philo, int hand);
+int		lock_fork(pthread_mutex_t *fork);
+int		unlock_fork(pthread_mutex_t *fork);
 void	eat(t_philo *philo);
 void	take_nap(t_philo *philo);
 void	thinks(t_philo *philo);

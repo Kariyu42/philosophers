@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 17:39:24 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/16 04:38:01 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/17 09:51:57 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static int	init_prog(int ac, char **av)
 
 int	main(int ac, char **av)
 {
-	// setbuf(stdout, NULL);
 	if (ac == COR_ARG || ac == ADDL_ARG)
 	{
 		if (init_prog(ac, av) != SUCCEED)

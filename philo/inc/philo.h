@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:37:36 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/16 05:17:33 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/17 09:20:37 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ typedef struct	s_philo
 }	t_philo;
 
 /* --- init_func / time --- */
-void	set_up_configs(t_settings **config, int ac, char **av);
 bool	valid_argument(int ac, char **av);
 int		init_mutex(t_settings *conf);
 t_philo	*init_philo(t_settings *conf);

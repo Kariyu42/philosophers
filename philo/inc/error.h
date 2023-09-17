@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:14:02 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/11 13:40:50 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/17 09:10:56 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define INIT_ERR "error: failed to initialize"
 # define MUTEX_ERR "error: mutex creation failed"
 # define LOCK_ERR "error: failed to lock mutex"
+# define UNLOCK_ERR "error: failed to unlock mutex"
 # define THREAD_ERR "error: thread creation failed"
 
 /* --- parsing message --- */
