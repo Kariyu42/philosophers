@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 17:39:24 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/17 09:51:57 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/18 10:58:21 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,23 @@ static int	init_prog(int ac, char **av)
 	t_settings	*conf;
 	t_philo		*philo;
 
-	conf = NULL;
-	philo = NULL;
 	if (valid_argument(ac, av) == false)
-		return (EXIT_FAILURE);
+		return (FAILED);
 	conf = handle_settings(ac, av);
 	if (init_mutex(conf) != SUCCEED)
 	{
 		putendl_error(MUTEX_ERR);
-		return (EXIT_FAILURE);
+		return (FAILED);
 	}
 	philo = init_philo(conf);
+	// ! printf must be removed
+	// printf("base_time conf: %ld\n", philo->conf->base_time);
 	if (!philo)
-		return (EXIT_FAILURE);
-	if (simulation_watcher(philo) == 0)
-		return (SUCCEED);
+	{
+		putendl_error(THREAD_ERR);
+		return (FAILED);
+	}
+	simulation_watcher(philo);
 	return (SUCCEED);
 }
 

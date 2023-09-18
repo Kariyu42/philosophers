@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 12:07:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/17 09:19:31 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/18 19:29:50 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	thinks(t_philo *philo)
 
 	time = timestamp(philo->conf->base_time, get_time());
 	print_status(time, philo, philo->id, THINK);
-	ft_usleep(philo->conf->time_sleep);
 }
 
 void	take_nap(t_philo *philo)
@@ -29,6 +28,7 @@ void	take_nap(t_philo *philo)
 
 	time = timestamp(philo->conf->base_time, get_time());
 	print_status(time, philo, philo->id, SLEEP);
+	ft_usleep(philo->conf->time_sleep);
 }
 
 void	eat(t_philo *philo)
@@ -42,6 +42,7 @@ void	eat(t_philo *philo)
 	print_status(time, philo, philo->id, EAT);
 	pthread_mutex_lock(&philo->conf->meal_lock);
 	philo->last_ate = time;
+	// printf("\033[38;5;224mlast_ate: %ld\033[0m\n", philo->last_ate);
 	pthread_mutex_unlock(&philo->conf->meal_lock);
 	ft_usleep(philo->conf->time_eat);
 	unlock_fork(&philo->conf->fork[philo->id - 1]);

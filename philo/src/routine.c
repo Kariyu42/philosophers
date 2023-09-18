@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 21:55:38 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/17 09:58:18 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/18 19:21:02 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include "error.h"
 #include "simulation.h"
 
-static bool	death_sentence(time_t time, time_t last_ate)
+static bool	death_sentence(time_t time, time_t last_ate, time_t death_time)
 {
-	if (time - last_ate <= TIMEOUT)
+	if (time - last_ate >= death_time)
 		return (true);
 	return (false);
 }
@@ -24,30 +24,36 @@ static bool	death_sentence(time_t time, time_t last_ate)
 // watcher
 int	simulation_watcher(t_philo *philo)
 {
-	int		i;
+	long	i;
+	long	exceed;
 	time_t	time;
 
-	i = 1;
+	i = 0;
+	exceed = philo->conf->nbr_philo;
+	// ! printf must be removed
+	// printf("exceed: %ld\n", exceed);
 	ft_usleep(philo->conf->time_eat);
-	while (1)
+	while ("watcher")
 	{
 		time = timestamp(philo->conf->base_time, get_time());
-		if (death_sentence(time, philo[i].last_ate) == true)
+		// ! printf must be removed
+		// printf("philo last ate = %ld\n", philo[5].last_ate);
+		if (death_sentence(time, philo[i].last_ate, \
+			philo->conf->time_death) == true)
 		{
-			time = timestamp(philo[i].conf->base_time, get_time());
+			time = timestamp(philo->conf->base_time, get_time());
 			print_status(time, philo, philo[i].id, DEAD);
 			break ;
 		}
 		i++;
-		if (i == philo->conf->nbr_philo + 1)
-			i = 1;
+		if (i == exceed)
+			i = 0;
 	}
 	return (0);
 }
 // ! place a watcher that will be in charge of analyzing the status of philo
-// ! if one dies or they are done eating (6th arg)
 // TODO change argument of while loop to check status of all philos. Using a watcher.
-// TODO without making them communicate with each other.
+// TODO Analyze each philo if they are done eating x times all of them.
 
 void	*routine(void *arg)
 {

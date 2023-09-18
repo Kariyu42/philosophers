@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 16:27:24 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/17 08:41:25 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/18 08:13:08 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ int	init_mutex(t_settings *conf)
 	while (++i < conf->nbr_philo)
 	{
 		if (pthread_mutex_init(&(conf->fork[i]), NULL) != 0)
-			return (EXIT_FAILURE);
+			return (FAILED);
 	}
 	if (pthread_mutex_init(&conf->put_status, NULL))
-		return (EXIT_FAILURE);
+		return (FAILED);
 	if (pthread_mutex_init(&conf->meal_lock, NULL))
-		return (EXIT_FAILURE);
+		return (FAILED);
 	return (SUCCEED);
 }

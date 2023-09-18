@@ -6,13 +6,14 @@
 #    By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/16 18:33:29 by kquetat-          #+#    #+#              #
-#    Updated: 2023/09/17 09:19:58 by kquetat-         ###   ########.fr        #
+#    Updated: 2023/09/18 11:16:43 by kquetat-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ------------------------------ COLORS ------------------------------ #
 ITALIC		=	\033[3m
 BOLD		=	\033[1m
+RESET		=	\033[0m
 BEIGE		=	\033[38;5;230m
 CREAM		=	\033[38;5;255m
 IVORY		=	\033[38;5;253m
@@ -68,4 +69,4 @@ fclean:	clean
 re:	fclean
 	${MAKE} all
 
-.PHONY: all clean fclean re
+.PHONY: all debug clean fclean re
