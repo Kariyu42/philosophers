@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:08:31 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/17 09:11:14 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/19 12:20:30 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 int	unlock_fork(pthread_mutex_t *fork)
 {
-	if (pthread_mutex_unlock(fork) != SUCCEED)
+	if (pthread_mutex_unlock(fork) != 0)
 	{
 		putendl_error(UNLOCK_ERR);
 		return (FAILED);
@@ -26,7 +26,7 @@ int	unlock_fork(pthread_mutex_t *fork)
 
 int	lock_fork(pthread_mutex_t *fork)
 {
-	if (pthread_mutex_lock(fork) != SUCCEED)
+	if (pthread_mutex_lock(fork) != 0)
 	{
 		putendl_error(LOCK_ERR);
 		return (FAILED);

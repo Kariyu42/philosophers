@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 17:39:24 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/18 10:58:21 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/19 20:18:01 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ static int	init_prog(int ac, char **av)
 		return (FAILED);
 	}
 	philo = init_philo(conf);
-	// ! printf must be removed
-	// printf("base_time conf: %ld\n", philo->conf->base_time);
 	if (!philo)
 	{
 		putendl_error(THREAD_ERR);
@@ -58,9 +56,4 @@ int	main(int ac, char **av)
 * ./philo [no. of philosopher] [time to die] [time to eat]
 * [time to sleep] [no. of times each philosopher must eat]
 */
-// TODO create the forks (mutex) ✅
-// TODO initialize philo ✅
-// TODO create functions to start simulation ✅
-// TODO lay out how the simulation will work ✅
 // TODO set up watcher that will take care of philosopher status if dead ?
-// TODO 
