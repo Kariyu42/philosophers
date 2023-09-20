@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:37:36 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/17 09:20:37 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/20 18:37:57 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct	s_settings
 	time_t			base_time;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	put_status;
+	pthread_mutex_t	food_nbr;
 	pthread_mutex_t	meal_lock;
 }	t_settings;
 
@@ -48,12 +49,10 @@ typedef struct	s_philo
 }	t_philo;
 
 /* --- init_func / time --- */
+int		init_prog(int ac, char **av);
 bool	valid_argument(int ac, char **av);
-int		init_mutex(t_settings *conf);
-t_philo	*init_philo(t_settings *conf);
 time_t	get_time(void);
 time_t	timestamp(time_t origin, time_t current);
-t_settings	*handle_settings(int ac, char **av);
 
 /* --- addl tools --- */
 void	*ft_calloc(size_t count, size_t size);

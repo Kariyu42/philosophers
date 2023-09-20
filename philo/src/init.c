@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_struct.c                                      :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 16:27:24 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/18 08:13:08 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/20 19:00:49 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include "error.h"
 #include "simulation.h"
 
-t_philo	*init_philo(t_settings *conf)
+static t_philo	*init_philo(t_settings *conf)
 {
 	t_philo	*philo;
 	int		i;
@@ -33,7 +34,7 @@ t_philo	*init_philo(t_settings *conf)
 	return (philo);
 }
 
-int	init_mutex(t_settings *conf)
+static int	init_mutex(t_settings *conf)
 {
 	int	i;
 
@@ -48,5 +49,47 @@ int	init_mutex(t_settings *conf)
 		return (FAILED);
 	if (pthread_mutex_init(&conf->meal_lock, NULL))
 		return (FAILED);
+	if (pthread_mutex_init(&conf->food_nbr, NULL))
+		return (FAILED);
+	return (SUCCEED);
+}
+
+static t_settings	*init_settings(int ac, char **av)
+{
+	t_settings	*config;
+
+	config = ft_calloc(1, sizeof(t_settings));
+	config->nbr_philo = ft_atoi(av[1]);
+	config->time_death = ft_atoi(av[2]);
+	config->time_eat = ft_atoi(av[3]);
+	config->time_sleep = ft_atoi(av[4]);
+	if (ac == ADDL_ARG)
+		config->food_limit = ft_atoi(av[5]);
+	else
+		config->food_limit = 0;
+	config->base_time = get_time();
+	return (config);
+}
+
+int	init_prog(int ac, char **av)
+{
+	t_settings	*conf;
+	t_philo		*philo;
+
+	if (valid_argument(ac, av) == false)
+		return (FAILED);
+	conf = init_settings(ac, av);
+	if (init_mutex(conf) != SUCCEED)
+	{
+		putendl_error(MUTEX_ERR);
+		return (FAILED);
+	}
+	philo = init_philo(conf);
+	if (!philo)
+	{
+		putendl_error(THREAD_ERR);
+		return (FAILED);
+	}
+	simulation_watcher(philo);
 	return (SUCCEED);
 }

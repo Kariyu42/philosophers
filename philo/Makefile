@@ -6,7 +6,7 @@
 #    By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/16 18:33:29 by kquetat-          #+#    #+#              #
-#    Updated: 2023/09/18 11:16:43 by kquetat-         ###   ########.fr        #
+#    Updated: 2023/09/20 18:31:03 by kquetat-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,11 +26,8 @@ SRC_PATH	=	./src/
 
 SRC			=	${addprefix ${SRC_PATH}, main.c \
 											addl_tools.c \
-											error.c \
-											fork_lock.c \
-											handle_arg.c \
-											init_struct.c \
-											philo_state.c \
+											handle_err.c \
+											init.c \
 											print_status.c \
 											routine.c \
 											time.c}
@@ -42,7 +39,7 @@ CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror -pthread
 
 ifdef	DEBUG
-	CFLAGS	+=	-fsanitize=address -g3
+	CFLAGS	+=	-fsanitize=thread -g3
 endif
 
 HEADER		=	./inc/

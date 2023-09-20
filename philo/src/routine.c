@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 21:55:38 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/20 15:47:39 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/20 18:59:49 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "error.h"
 #include "simulation.h"
 
-static bool	death_sentence(time_t time, time_t last_ate, t_philo *philo)
+bool	death_sentence(time_t time, time_t last_ate, t_philo *philo)
 {
 	if (time - last_ate >= philo->conf->time_death)
 		return (true);
@@ -24,24 +24,19 @@ static bool	death_sentence(time_t time, time_t last_ate, t_philo *philo)
 static bool	all_philo_ate(t_philo *philo)
 {
 	long	total;
-	t_philo	*tmp;
+	long	eat;
 	long	i;
 
-	i = 0;
+	i = -1;
+	eat = 0;
 	total = philo->conf->nbr_philo;
-	tmp = philo;
-	while (tmp)
+	while (++i < philo->conf->nbr_philo)
 	{
-		// printf("tmp->eat_nb: %d\n", tmp->eat_nb);
 		if (philo->conf->food_limit > 0 && \
-			tmp->eat_nb >= philo->conf->food_limit)
-			i++;
-		if (i == total)
-		{
-			printf("total: %ld i:%ld\n", total, i);
+			philo[i].eat_nb >= philo->conf->food_limit)
+			eat++;
+		if (eat == total)
 			return (true);
-		}
-		tmp++;
 	}
 	return (false);
 }
@@ -49,23 +44,23 @@ static bool	all_philo_ate(t_philo *philo)
 // watcher
 int	simulation_watcher(t_philo *philo)
 {
-	long	exceed;
-	time_t	time;
-	long	i;
+	long		exceed;
+	time_t		time;
+	long		i;
 
-	ft_usleep(1000);
-	if (philo->conf->nbr_philo == 1)
-		return (0);
 	i = 0;
 	exceed = philo->conf->nbr_philo;
 	while ("watcher")
 	{
 		time = timestamp(philo->conf->base_time, get_time());
+		pthread_mutex_lock(&philo->conf->food_nbr);
 		if (death_sentence(time, philo[i].last_ate, philo) == true)
 		{
+			pthread_mutex_lock(&philo->conf->put_status);
 			printf("%ld %d died\n", time, philo[i].id);
 			break ;
 		}
+		pthread_mutex_unlock(&philo->conf->food_nbr);
 		if (all_philo_ate(philo) == true)
 			break ;
 		i++;
@@ -80,11 +75,38 @@ static void	*lonely_routine(t_philo *philo)
 	time_t	time;
 
 	take_fork(philo, LEFT);
-	put_routine(philo, philo->id, THINK);
 	ft_usleep(philo->conf->time_death);
 	time = timestamp(philo->conf->base_time, get_time());
 	printf("%ld %d died\n", time, philo->id);
 	return (NULL);
+}
+
+void	eat(t_philo *philo)
+{
+	put_routine(philo, philo->id, EAT);
+	pthread_mutex_lock(&philo->conf->meal_lock);
+	philo->eat_nb++;
+	pthread_mutex_unlock(&philo->conf->meal_lock);
+	ft_usleep(philo->conf->time_eat);
+	unlock_fork(&philo->conf->fork[philo->id - 1]);
+	if (philo->id == FIRST)
+		unlock_fork(&philo->conf->fork[philo->conf->nbr_philo - 1]);
+	else
+		unlock_fork(&philo->conf->fork[philo->id - 2]);
+}
+
+void	take_fork(t_philo *philo, int hand)
+{
+	if (hand == LEFT)
+		lock_fork(&philo->conf->fork[philo->id - 1]);
+	else if (hand == RIGHT)
+	{
+		if (philo->id == FIRST)
+			lock_fork(&philo->conf->fork[philo->conf->nbr_philo - 1]);
+		else
+			lock_fork(&philo->conf->fork[philo->id - 2]);
+	}
+	put_routine(philo, philo->id, FORK);
 }
 
 void	*routine(void *arg)
@@ -92,14 +114,14 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	if (philo->conf->nbr_philo == 1)
+		return (lonely_routine(philo));
 	if (philo->id % 2 == 0)
 	{
 		put_routine(philo, philo->id, THINK);
 		ft_usleep(philo->conf->time_death / 3);
 	}
-	if (philo->conf->nbr_philo == 1)
-		return (lonely_routine(philo));
-	while (1)
+	while ("spaghetti")
 	{
 		take_fork(philo, LEFT);
 		take_fork(philo, RIGHT);
@@ -107,7 +129,6 @@ void	*routine(void *arg)
 		put_routine(philo, philo->id, SLEEP);
 		ft_usleep(philo->conf->time_sleep);
 		put_routine(philo, philo->id, THINK);
-		ft_usleep(philo->conf->time_death / 3);
 	}
 	return (NULL);
 }
