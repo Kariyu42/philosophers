@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:48:17 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/19 20:27:03 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/20 14:04:14 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ void	put_routine(t_philo *philo, int philo_id, int status)
 	if (status == FORK)
 		printf("%ld %d has taken a fork\n", time, philo_id);
 	else if (status == EAT)
+	{
+		philo->last_ate = time;
 		printf("%ld %d is eating\n", time, philo_id);
+	}
 	else if (status == SLEEP)
 		printf("%ld %d is sleeping\n", time, philo_id);
 	else if (status == THINK)
