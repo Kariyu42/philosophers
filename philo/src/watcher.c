@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:02:36 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/21 19:56:21 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/21 21:36:41 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,26 @@ static bool	check_death(time_t time, t_philo *philo, int i)
 	return (false);
 }
 
+static bool	lonely_philo(t_philo *philo)
+{
+	if (philo->conf->nbr_philo == 1)
+	{
+		ft_usleep(philo->conf->time_death);
+		return (true);
+	}
+	return (false);
+}
+
 int	simulation_watcher(t_philo *philo)
 {
 	long	exceed;
 	time_t	time;
 	long	i;
 
-	if (philo->conf->nbr_philo == 1)
-	{
-		ft_usleep(philo->conf->time_death);
-		return (0);
-	}
 	i = 0;
 	exceed = philo->conf->nbr_philo;
+	if (lonely_philo(philo) == true)
+		return (0);
 	while ("watcher")
 	{
 		time = timestamp(philo->conf->base_time, get_time());
