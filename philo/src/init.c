@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 16:27:24 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/20 19:00:49 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:27:25 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,28 +29,36 @@ static t_philo	*init_philo(t_settings *conf)
 		philo[i].conf = conf;
 		if (pthread_create(&philo[i].thread, NULL, &routine, \
 			&philo[i]) != 0)
+		{
+			free(philo);
 			return (NULL);
+		}
 	}
 	return (philo);
 }
 
-static int	init_mutex(t_settings *conf)
+int	init_mutex(t_settings *conf)
 {
 	int	i;
 
 	i = -1;
-	conf->fork = malloc(sizeof(pthread_mutex_t) * conf->nbr_philo);
+	conf->fork = ft_calloc(conf->nbr_philo, sizeof(pthread_mutex_t));
+	if (!conf->fork)
+		return (ALLOC);
 	while (++i < conf->nbr_philo)
-	{
 		if (pthread_mutex_init(&(conf->fork[i]), NULL) != 0)
+		{
+			free(conf->fork);
 			return (FAILED);
+		}
+	if (pthread_mutex_init(&conf->put_status, NULL) != 0 || \
+		pthread_mutex_init(&conf->meal_lock, NULL) != 0 || \
+		pthread_mutex_init(&conf->food_nbr, NULL) != 0 || \
+		pthread_mutex_init(&conf->limit_lock, NULL) != 0)
+	{
+		free(conf->fork);
+		return (FAILED);
 	}
-	if (pthread_mutex_init(&conf->put_status, NULL))
-		return (FAILED);
-	if (pthread_mutex_init(&conf->meal_lock, NULL))
-		return (FAILED);
-	if (pthread_mutex_init(&conf->food_nbr, NULL))
-		return (FAILED);
 	return (SUCCEED);
 }
 
@@ -67,29 +75,27 @@ static t_settings	*init_settings(int ac, char **av)
 		config->food_limit = ft_atoi(av[5]);
 	else
 		config->food_limit = 0;
+	config->done_eating = false;
 	config->base_time = get_time();
 	return (config);
 }
 
 int	init_prog(int ac, char **av)
 {
-	t_settings	*conf;
 	t_philo		*philo;
+	t_settings	*conf;
 
 	if (valid_argument(ac, av) == false)
 		return (FAILED);
 	conf = init_settings(ac, av);
-	if (init_mutex(conf) != SUCCEED)
-	{
-		putendl_error(MUTEX_ERR);
+	if (!conf)
+		return (putendl_error(ALLOC_ERR));
+	if (manage_mutex(conf) != SUCCEED)
 		return (FAILED);
-	}
 	philo = init_philo(conf);
-	if (!philo)
-	{
-		putendl_error(THREAD_ERR);
+	if (check_philo(philo, conf) != SUCCEED)
 		return (FAILED);
-	}
 	simulation_watcher(philo);
+	// end_sim();
 	return (SUCCEED);
 }

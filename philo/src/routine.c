@@ -6,80 +6,13 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 21:55:38 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/20 18:59:49 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:06:32 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include "error.h"
 #include "simulation.h"
-
-bool	death_sentence(time_t time, time_t last_ate, t_philo *philo)
-{
-	if (time - last_ate >= philo->conf->time_death)
-		return (true);
-	return (false);
-}
-
-static bool	all_philo_ate(t_philo *philo)
-{
-	long	total;
-	long	eat;
-	long	i;
-
-	i = -1;
-	eat = 0;
-	total = philo->conf->nbr_philo;
-	while (++i < philo->conf->nbr_philo)
-	{
-		if (philo->conf->food_limit > 0 && \
-			philo[i].eat_nb >= philo->conf->food_limit)
-			eat++;
-		if (eat == total)
-			return (true);
-	}
-	return (false);
-}
-
-// watcher
-int	simulation_watcher(t_philo *philo)
-{
-	long		exceed;
-	time_t		time;
-	long		i;
-
-	i = 0;
-	exceed = philo->conf->nbr_philo;
-	while ("watcher")
-	{
-		time = timestamp(philo->conf->base_time, get_time());
-		pthread_mutex_lock(&philo->conf->food_nbr);
-		if (death_sentence(time, philo[i].last_ate, philo) == true)
-		{
-			pthread_mutex_lock(&philo->conf->put_status);
-			printf("%ld %d died\n", time, philo[i].id);
-			break ;
-		}
-		pthread_mutex_unlock(&philo->conf->food_nbr);
-		if (all_philo_ate(philo) == true)
-			break ;
-		i++;
-		if (i == exceed)
-			i = 0;
-	}
-	return (0);
-}
-
-static void	*lonely_routine(t_philo *philo)
-{
-	time_t	time;
-
-	take_fork(philo, LEFT);
-	ft_usleep(philo->conf->time_death);
-	time = timestamp(philo->conf->base_time, get_time());
-	printf("%ld %d died\n", time, philo->id);
-	return (NULL);
-}
 
 void	eat(t_philo *philo)
 {
@@ -109,6 +42,17 @@ void	take_fork(t_philo *philo, int hand)
 	put_routine(philo, philo->id, FORK);
 }
 
+static void	*lonely_routine(t_philo *philo)
+{
+	time_t	time;
+
+	take_fork(philo, LEFT);
+	ft_usleep(philo->conf->time_death);
+	time = timestamp(philo->conf->base_time, get_time());
+	printf("%ld %d died\n", time, philo->id);
+	return (NULL);
+}
+
 void	*routine(void *arg)
 {
 	t_philo	*philo;
@@ -121,7 +65,7 @@ void	*routine(void *arg)
 		put_routine(philo, philo->id, THINK);
 		ft_usleep(philo->conf->time_death / 3);
 	}
-	while ("spaghetti")
+	while (!sim_status(philo))
 	{
 		take_fork(philo, LEFT);
 		take_fork(philo, RIGHT);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   handle_err.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:13:32 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/20 16:54:50 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/21 13:02:20 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	ft_putchar_fd(char c, int fd)
 	write(fd, &c, 1);
 }
 
-void	putendl_error(char *error)
+int	putendl_error(char *error)
 {
 	int	i;
 
@@ -27,6 +27,7 @@ void	putendl_error(char *error)
 	while (error[++i])
 		ft_putchar_fd(error[i], STDERR_FILENO);
 	ft_putchar_fd('\n', STDERR_FILENO);
+	return (1);
 }
 
 int	unlock_fork(pthread_mutex_t *fork)
