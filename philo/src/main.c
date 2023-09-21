@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 17:39:24 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/20 18:47:43 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/21 19:59:31 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ int	main(int ac, char **av)
 		putendl_error(ARG_ERR);
 		return (EXIT_FAILURE);
 	}
-	system("leaks philo");
+	// system("leaks philo");
 	return (EXIT_SUCCESS);
 }
