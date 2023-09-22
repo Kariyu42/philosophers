@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 14:01:56 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/22 18:33:21 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/22 19:05:31 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ int	check_philo(t_philo *philo, t_settings *conf)
 		pthread_mutex_destroy(&conf->meal_lock);
 		pthread_mutex_destroy(&conf->food_nbr);
 		pthread_mutex_destroy(&conf->limit_lock);
-		free(conf->fork);
-		free(conf);
 		return (putendl_error(THREAD_ERR));
 	}
 	return (SUCCEED);
@@ -80,9 +78,6 @@ int	manage_mutex(t_settings *conf)
 	if (err_type == ALLOC)
 		return (putendl_error(ALLOC_ERR));
 	else if (err_type == FAILED)
-	{
-		free(conf);
 		return (putendl_error(MUTEX_ERR));
-	}
 	return (SUCCEED);
 }
