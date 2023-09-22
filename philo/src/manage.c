@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 14:01:56 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/22 18:18:59 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/22 18:33:21 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	end_sim(t_settings *conf, t_philo *philo)
 	pthread_mutex_destroy(&conf->meal_lock);
 	pthread_mutex_destroy(&conf->food_nbr);
 	pthread_mutex_destroy(&conf->limit_lock);
-	free(conf->fork);
 }
 
 void	put_routine(t_philo *philo, int philo_id, int status)
