@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 21:55:38 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/21 17:06:32 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/22 16:27:06 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	*routine(void *arg)
 		put_routine(philo, philo->id, THINK);
 		ft_usleep(philo->conf->time_death / 3);
 	}
-	while (!sim_status(philo))
+	while (philo && !sim_status(philo))
 	{
 		take_fork(philo, LEFT);
 		take_fork(philo, RIGHT);

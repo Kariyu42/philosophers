@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:02:36 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/21 21:36:41 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/22 17:04:34 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static bool	lonely_philo(t_philo *philo)
 {
 	if (philo->conf->nbr_philo == 1)
 	{
-		ft_usleep(philo->conf->time_death);
+		ft_usleep(philo->conf->time_death * 2);
 		return (true);
 	}
 	return (false);

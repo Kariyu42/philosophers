@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 16:27:24 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/21 17:27:25 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/22 18:29:27 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,13 @@ int	init_mutex(t_settings *conf)
 	if (!conf->fork)
 		return (ALLOC);
 	while (++i < conf->nbr_philo)
+	{
 		if (pthread_mutex_init(&(conf->fork[i]), NULL) != 0)
 		{
 			free(conf->fork);
 			return (FAILED);
 		}
+	}
 	if (pthread_mutex_init(&conf->put_status, NULL) != 0 || \
 		pthread_mutex_init(&conf->meal_lock, NULL) != 0 || \
 		pthread_mutex_init(&conf->food_nbr, NULL) != 0 || \
@@ -96,6 +98,6 @@ int	init_prog(int ac, char **av)
 	if (check_philo(philo, conf) != SUCCEED)
 		return (FAILED);
 	simulation_watcher(philo);
-	// end_sim();
+	end_sim(conf, philo);
 	return (SUCCEED);
 }

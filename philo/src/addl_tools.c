@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 18:22:42 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/16 05:49:08 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/22 18:30:01 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ bool	is_numeric(char *nbr)
 static void	ft_bzero(void *str, size_t n)
 {
 	unsigned int	i;
+
 	i = -1;
 	while (++i < n)
 		((char *) str)[i] = '\0';

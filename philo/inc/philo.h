@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:37:36 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/21 16:57:27 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/22 17:04:46 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ void	*ft_calloc(size_t count, size_t size);
 bool	is_numeric(char *nbr);
 int		ft_atoi(char *nbr);
 int		ft_usleep(size_t milliseconds);
+void	end_sim(t_settings *conf, t_philo *philo);
 
 #endif
