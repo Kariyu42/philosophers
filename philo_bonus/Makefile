@@ -6,7 +6,7 @@
 #    By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/16 18:33:29 by kquetat-          #+#    #+#              #
-#    Updated: 2023/09/23 08:20:36 by kquetat-         ###   ########.fr        #
+#    Updated: 2023/09/25 08:02:48 by kquetat-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +14,10 @@
 SRC_PATH	=	./src/
 
 SRC			=	${addprefix ${SRC_PATH}, main_bonus.c \
-											addl_tools.c \
-											handle_err.c \
-											init.c \
-											manage.c \
-											routine.c \
-											time.c \
-											watcher.c}
+											handle_bonus.c \
+											init_bonus.c \
+											time_bonus.c \
+											tools_bonus.c}
 
 OBJ			=	${SRC:.c=.o}
 
