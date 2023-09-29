@@ -6,7 +6,7 @@
 #    By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/16 18:33:29 by kquetat-          #+#    #+#              #
-#    Updated: 2023/09/22 19:16:19 by kquetat-         ###   ########.fr        #
+#    Updated: 2023/09/28 12:50:36 by kquetat-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,12 +30,7 @@ CFLAGS		=	-Wall -Wextra -Werror -pthread
 
 # --- DEBUG PURPOSES --- #
 ifdef	DEBUG
-	CFLAGS	+=	-fsanitize=address -g3
-endif
-
-# --- DATA RACE DEBUG --- #
-ifdef	THREAD
-	CFLAGS	+=	-fsanitize=thread -g3
+	CC	+=	-g
 endif
 
 HEADER		=	./inc/
@@ -54,9 +49,6 @@ ${NAME}:	${OBJ}
 debug:
 	${MAKE} DEBUG=1
 
-thread:
-	${MAKE} THREAD=1
-
 clean:
 	rm -f ${OBJ}
 
@@ -66,4 +58,4 @@ fclean:	clean
 re:	fclean
 	${MAKE} all
 
-.PHONY: all debug thread clean fclean re
+.PHONY: all debug clean fclean re

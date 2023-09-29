@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 16:27:24 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/22 19:06:45 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/29 16:48:40 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,10 @@ int	init_mutex(t_settings *conf)
 	while (++i < conf->nbr_philo)
 		if (pthread_mutex_init(&(conf->fork[i]), NULL) != 0)
 			return (FAILED);
-	if (pthread_mutex_init(&conf->put_status, NULL) != 0 || \
-		pthread_mutex_init(&conf->meal_lock, NULL) != 0 || \
-		pthread_mutex_init(&conf->food_nbr, NULL) != 0 || \
-		pthread_mutex_init(&conf->limit_lock, NULL) != 0)
-		return (FAILED);
+	i = -1;
+	while (++i < NBR_MUTEXES)
+		if (pthread_mutex_init(&(conf->mute[i]), NULL) != 0)
+			return (FAILED);
 	return (SUCCEED);
 }
 
@@ -67,6 +66,7 @@ static t_settings	*init_settings(int ac, char **av)
 	else
 		config->food_limit = 0;
 	config->done_eating = false;
+	config->death = false;
 	config->base_time = get_time();
 	return (config);
 }
@@ -86,7 +86,7 @@ int	init_prog(int ac, char **av)
 	philo = init_philo(conf);
 	if (check_philo(philo, conf) != SUCCEED)
 		return (FAILED);
-	simulation_watcher(philo);
+	watcher(philo);
 	end_sim(conf, philo);
 	return (SUCCEED);
 }

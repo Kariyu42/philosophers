@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 10:59:57 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/21 17:08:10 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/09/28 19:36:38 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		lock_fork(pthread_mutex_t *fork);
 int		unlock_fork(pthread_mutex_t *fork);
 void	eat(t_philo *philo);
 bool	sim_status(t_philo *philo);
-int		simulation_watcher(t_philo *philo);
+int		watcher(t_philo *philo);
 
 /* --- PRINT ---*/
 void	put_routine(t_philo *philo, int philo_id, int status);
