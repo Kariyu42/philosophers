@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 14:01:56 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/29 17:01:10 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/10/09 11:45:38 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,6 @@ void	end_sim(t_settings *conf, t_philo *philo)
 	i = -1;
 	while (++i < conf->nbr_philo)
 		pthread_mutex_destroy(&(conf->fork[i]));
-}
-
-static int	test(t_philo *philo, int philo_id)
-{
-	if (philo_id == have)
-	return 1;
 }
 
 void	put_routine(t_philo *philo, int philo_id, int status)

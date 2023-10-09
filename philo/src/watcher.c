@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:02:36 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/29 16:53:02 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/10/09 13:33:37 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 bool	sim_status(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->conf->mute[STATUS]);
-	if (philo->conf->done_eating == true)
+	if (philo->conf->done_eating == true || philo->conf->death == true)
 	{
 		pthread_mutex_unlock(&philo->conf->mute[STATUS]);
 		return (true);
@@ -89,15 +89,15 @@ int	watcher(t_philo *philo)
 	time_t	time;
 	long	i;
 
-	i = 0;
-	pthread_mutex_lock(&philo->conf->mute[TIME]);
+	i = -1;
 	time = philo->conf->base_time;
-	pthread_mutex_unlock(&philo->conf->mute[TIME]);
-	pthread_mutex_lock(&philo->conf->mute[NBR_PHILO]);
 	exceed = philo->conf->nbr_philo;
-	pthread_mutex_unlock(&philo->conf->mute[NBR_PHILO]);
+	while (++i < philo->conf->nbr_philo)
+		if (pthread_create(&philo[i].thread, NULL, &routine, &philo[i]) != 0)
+			return (-1);
 	if (lonely_philo(philo) == true)
 		return (0);
+	i = 0;
 	while ("watcher")
 	{
 		if (check_death(timestamp(time, get_time()), philo, i) == true)

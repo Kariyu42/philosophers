@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 21:55:38 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/29 09:59:22 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/10/09 14:08:16 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void	*lonely_routine(t_philo *philo)
 {
 	time_t	time;
 
+	pthread_mutex_unlock(&philo->conf->mute[NBR_PHILO]);
 	take_fork(philo, LEFT);
 	ft_usleep(philo->conf->time_death);
 	pthread_mutex_lock(&philo->conf->mute[TIME]);

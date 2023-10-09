@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 16:27:24 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/29 16:48:40 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/10/09 13:29:15 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "error.h"
 #include "simulation.h"
 
+// ! Removed the pthread_create function. Must add it later on. Maybe in the watcher.
 static t_philo	*init_philo(t_settings *conf)
 {
 	t_philo	*philo;
@@ -27,9 +28,6 @@ static t_philo	*init_philo(t_settings *conf)
 		philo[i].eat_nb = 0;
 		philo[i].last_ate = 0;
 		philo[i].conf = conf;
-		if (pthread_create(&philo[i].thread, NULL, &routine, \
-			&philo[i]) != 0)
-			return (NULL);
 	}
 	return (philo);
 }
