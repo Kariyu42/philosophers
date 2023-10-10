@@ -6,12 +6,12 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:13:32 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/21 13:02:20 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/10/10 10:05:59 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include "error.h"
+#include "error_philo.h"
 #include "simulation.h"
 
 static void	ft_putchar_fd(char c, int fd)

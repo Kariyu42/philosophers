@@ -6,12 +6,12 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 14:01:56 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/10/09 11:45:38 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/10/10 14:04:53 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include "error.h"
+#include "error_philo.h"
 #include "simulation.h"
 
 void	end_sim(t_settings *conf, t_philo *philo)
@@ -21,10 +21,16 @@ void	end_sim(t_settings *conf, t_philo *philo)
 	(void)conf;
 	i = -1;
 	while (++i < philo->conf->nbr_philo)
+	{
+		printf("oui: %d\n", i);
 		pthread_join(philo[i].thread, NULL);
+	}
 	i = -1;
 	while (++i < conf->nbr_philo)
+	{
+		printf("non: %d\n", i);
 		pthread_mutex_destroy(&(conf->fork[i]));
+	}
 }
 
 void	put_routine(t_philo *philo, int philo_id, int status)
@@ -33,7 +39,10 @@ void	put_routine(t_philo *philo, int philo_id, int status)
 
 	pthread_mutex_lock(&philo->conf->mute[PRINT]);
 	if (philo->conf->death == true)
+	{
+		pthread_mutex_unlock(&philo->conf->mute[PRINT]);
 		return ;
+	}
 	pthread_mutex_lock(&philo->conf->mute[TIME]);
 	time = timestamp(philo->conf->base_time, get_time());
 	pthread_mutex_unlock(&philo->conf->mute[TIME]);

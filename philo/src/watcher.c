@@ -6,12 +6,12 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:02:36 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/10/09 13:33:37 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/10/10 10:05:59 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include "error.h"
+#include "error_philo.h"
 #include "simulation.h"
 
 bool	sim_status(t_philo *philo)

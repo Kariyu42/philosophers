@@ -6,12 +6,12 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 21:55:38 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/10/09 14:08:16 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/10/10 13:56:40 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include "error.h"
+#include "error_philo.h"
 #include "simulation.h"
 
 void	eat(t_philo *philo)
@@ -53,6 +53,7 @@ static void	*lonely_routine(t_philo *philo)
 	time = timestamp(philo->conf->base_time, get_time());
 	pthread_mutex_unlock(&philo->conf->mute[TIME]);
 	printf("%ld %d died\n", time, philo->id);
+	unlock_fork(&philo->conf->fork[philo->id - 1]);
 	return (NULL);
 }
 

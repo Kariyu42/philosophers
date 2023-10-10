@@ -6,12 +6,12 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 16:27:24 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/10/09 13:29:15 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/10/10 10:05:59 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include "error.h"
+#include "error_philo.h"
 #include "simulation.h"
 
 // ! Removed the pthread_create function. Must add it later on. Maybe in the watcher.
