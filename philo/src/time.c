@@ -6,13 +6,13 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:28:12 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/08 14:24:18 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/10/11 10:43:30 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-time_t	timestamp(time_t origin, time_t current)
+time_t	time_now(time_t origin, time_t current)
 {
 	return (current - origin);
 }

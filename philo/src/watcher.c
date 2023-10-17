@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:02:36 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/10/10 10:05:59 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/10/17 18:59:53 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,19 @@ bool	sim_status(t_philo *philo)
 
 static bool	all_philo_ate(t_philo *philo)
 {
-	long	total;
-	long	eat;
-	long	i;
+	int	total;
+	int	eat;
+	int	i;
 
 	i = -1;
 	eat = 0;
-	pthread_mutex_lock(&philo->conf->mute[NBR_PHILO]);
 	total = philo->conf->nbr_philo;
-	pthread_mutex_unlock(&philo->conf->mute[NBR_PHILO]);
 	while (++i < total)
 	{
-		pthread_mutex_lock(&philo->conf->mute[MUST_EAT]);
-		if (philo->conf->food_limit > 0 && \
-			philo[i].eat_nb >= philo->conf->food_limit)
+		pthread_mutex_lock(&philo[i].eat_lock);
+		if (philo[i].eat_nb >= philo->conf->food_limit)
 			eat++;
-		pthread_mutex_unlock(&philo->conf->mute[MUST_EAT]);
+		pthread_mutex_unlock(&philo[i].eat_lock);
 	}
 	if (eat == total)
 	{
@@ -55,58 +52,69 @@ static bool	all_philo_ate(t_philo *philo)
 	return (false);
 }
 
-static bool	check_death(time_t time, t_philo *philo, int i)
-{
-	pthread_mutex_lock(&philo->conf->mute[LAST_ATE]);
-	if (time - philo[i].last_ate >= philo->conf->time_death)
-	{
-		pthread_mutex_lock(&philo->conf->mute[PRINT]);
-		printf("%ld %d died\n", time, philo[i].id);
-		philo->conf->death = true;
-		pthread_mutex_unlock(&philo->conf->mute[PRINT]);
-		return (true);
-	}
-	pthread_mutex_unlock(&philo->conf->mute[LAST_ATE]);
-	return (false);
-}
-
 static bool	lonely_philo(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->conf->mute[NBR_PHILO]);
 	if (philo->conf->nbr_philo == 1)
 	{
-		pthread_mutex_unlock(&philo->conf->mute[NBR_PHILO]);
 		ft_usleep(philo->conf->time_death * 2);
 		return (true);
 	}
-	pthread_mutex_unlock(&philo->conf->mute[NBR_PHILO]);
 	return (false);
 }
 
-int	watcher(t_philo *philo)
+static bool	check_death(time_t time, t_philo *philo, int i)
 {
-	long	exceed;
-	time_t	time;
-	long	i;
+	pthread_mutex_lock(&philo[i].eat_lock);
+	if (time - philo[i].last_ate >= philo->conf->time_death)
+	{
+		pthread_mutex_unlock(&philo->eat_lock);
+		put_routine(philo, i, DEAD);
+		return (true);
+	}
+	pthread_mutex_unlock(&philo[i].eat_lock);
+	return (false);
+}
+
+static bool	stop_factors(time_t time, t_philo *philo)
+{
+	int	i;
 
 	i = -1;
-	time = philo->conf->base_time;
-	exceed = philo->conf->nbr_philo;
 	while (++i < philo->conf->nbr_philo)
+		if (check_death(time_now(time, get_time()), philo, i) == true)
+			return (true);
+	if (philo->conf->food_limit > 0)
+		return (all_philo_ate(philo));
+	return (false);
+}
+
+static int	start_philosophers(t_philo *philo)
+{
+	int	i;
+
+	i = -1;
+	while (++i < philo->conf->nbr_philo)
+	{
 		if (pthread_create(&philo[i].thread, NULL, &routine, &philo[i]) != 0)
-			return (-1);
+			return (putendl_error(THREAD_ERR));
+	}
+	return (SUCCEED);
+}
+
+// * We will have 2 mutexes shared between the watcher and the philosophers.
+int	watcher(t_philo *philo)
+{
+	time_t	time;
+
+	time = philo->conf->base_time;
+	if (start_philosophers(philo) < 0)
+		return (-1);
 	if (lonely_philo(philo) == true)
 		return (0);
-	i = 0;
 	while ("watcher")
 	{
-		if (check_death(timestamp(time, get_time()), philo, i) == true)
+		if (stop_factors(time, philo) == true)
 			break ;
-		if (philo->conf->food_limit > 0 && all_philo_ate(philo) == true)
-			break ;
-		i++;
-		if (i == exceed)
-			i = 0;
 		ft_usleep(1000);
 	}
 	return (0);

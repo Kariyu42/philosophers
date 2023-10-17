@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:37:36 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/10/09 13:09:33 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/10/17 17:30:06 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,14 @@
 # define SUCCEED 0
 # define COR_ARG 5
 # define ADDL_ARG 6
-# define NBR_MUTEXES 7
+# define NBR_MUTEXES 3
 
 /* --- ENUM --- */
 typedef enum e_lock
 {
 	PRINT,
-	TIME,
-	LAST_ATE,
-	MUST_EAT,
 	STATUS,
-	NBR_PHILO,
-	ARG
+	LAST_ATE,
 }	t_lock;
 
 /* --- STRUCT --- */
@@ -57,25 +53,23 @@ typedef struct s_settings
 
 typedef struct s_philo
 {
-	struct s_settings	*conf;
 	int					id;
 	int					eat_nb;
 	time_t				last_ate;
-	bool				have_lock_fork;
+	pthread_mutex_t		eat_lock;
 	pthread_t			thread;
+	struct s_settings	*conf;
 }	t_philo;
 
 /* --- INIT / TIME --- */
 int		init_prog(int ac, char **av);
 int		init_mutex(t_settings *conf);
-bool	valid_argument(int ac, char **av);
+int		valid_argument(int ac, char **av);
 time_t	get_time(void);
-time_t	timestamp(time_t origin, time_t current);
+time_t	time_now(time_t origin, time_t current);
 
 /* --- TOOLS --- */
 int		manage_mutex(t_settings *conf);
-int		check_philo(t_philo *philo, t_settings *conf);
-void	*ft_calloc(size_t count, size_t size);
 bool	is_numeric(char *nbr);
 int		ft_atoi(char *nbr);
 int		ft_usleep(size_t milliseconds);

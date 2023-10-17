@@ -6,7 +6,7 @@
 #    By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/16 18:33:29 by kquetat-          #+#    #+#              #
-#    Updated: 2023/09/28 12:50:36 by kquetat-         ###   ########.fr        #
+#    Updated: 2023/10/11 11:57:38 by kquetat-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ SRC_PATH	=	./src/
 SRC			=	${addprefix ${SRC_PATH}, main.c \
 											addl_tools.c \
 											handle_err.c \
-											init.c \
 											manage.c \
+											program.c \
 											routine.c \
 											time.c \
 											watcher.c}

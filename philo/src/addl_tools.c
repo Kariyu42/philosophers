@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 18:22:42 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/09/22 18:30:01 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/10/11 11:28:18 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,26 +51,4 @@ bool	is_numeric(char *nbr)
 			return (false);
 	}
 	return (true);
-}
-
-static void	ft_bzero(void *str, size_t n)
-{
-	unsigned int	i;
-
-	i = -1;
-	while (++i < n)
-		((char *) str)[i] = '\0';
-}
-
-void	*ft_calloc(size_t count, size_t size)
-{
-	void	*ptr;
-
-	if (size && (((size_t) - 1) / size) < count)
-		return (NULL);
-	ptr = malloc(count * size);
-	if (!ptr)
-		return (NULL);
-	ft_bzero(ptr, size * count);
-	return (ptr);
 }
