@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:37:36 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/10/18 17:14:33 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/10/18 20:08:42 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,13 @@
 # define SUCCEED 0
 # define COR_ARG 5
 # define ADDL_ARG 6
-# define NBR_MUTEXES 3
+# define NBR_MUTEXES 2
 
 /* --- ENUM --- */
 typedef enum e_lock
 {
 	PRINT,
 	STATUS,
-	LAST_ATE,
 }	t_lock;
 
 /* --- STRUCT --- */

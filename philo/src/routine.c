@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 21:55:38 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/10/18 15:51:26 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/10/18 19:30:36 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	eat(t_philo *ph)
 	put_routine(ph, ph->id, EAT);
 	pthread_mutex_lock(&ph->eat_lock);
 	ph->eat_nb++;
-	ph->last_ate = time_now(ph->conf->base_time, get_time());
 	pthread_mutex_unlock(&ph->eat_lock);
 	ft_usleep(ph->conf->time_eat);
 	if (unlock_fork(&ph->conf->fork[ph->id - 1]) != 0)
@@ -38,7 +37,7 @@ static void	philo_wait(t_philo *philo)
 	if (philo->id % 2 == 0)
 	{
 		put_routine(philo, philo->id, THINK);
-		ft_usleep(philo->conf->time_death / 3);
+		ft_usleep(50);
 	}
 }
 

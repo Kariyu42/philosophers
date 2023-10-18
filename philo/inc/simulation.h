@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 10:59:57 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/10/18 15:12:29 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/10/18 20:36:39 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef enum e_type
 }	t_type;
 
 /* --- THREADS --- */
+bool	lonely_philo(t_philo *philo);
+int		start_philosophers(t_philo *philo);
 void	*routine(void *arg);
 int		lock_fork(t_philo *philo, pthread_mutex_t *fork);
 int		unlock_fork(pthread_mutex_t *fork);

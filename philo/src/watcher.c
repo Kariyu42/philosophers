@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:02:36 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/10/18 16:17:27 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/10/18 20:36:24 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	sim_status(t_philo *philo)
 	return (false);
 }
 
-static bool	all_philo_ate(t_philo *philo)
+bool	all_philo_ate(t_philo *philo)
 {
 	int	total;
 	int	eat;
@@ -52,23 +52,13 @@ static bool	all_philo_ate(t_philo *philo)
 	return (false);
 }
 
-static bool	lonely_philo(t_philo *philo)
-{
-	if (philo->conf->nbr_philo == 1)
-	{
-		ft_usleep(philo->conf->time_death * 2);
-		return (true);
-	}
-	return (false);
-}
-
-static bool	check_death(time_t time, t_philo *philo, int i)
+bool	check_death(time_t time, t_philo *philo, int i)
 {
 	pthread_mutex_lock(&philo[i].eat_lock);
 	if (time - philo[i].last_ate >= philo->conf->time_death)
 	{
-		pthread_mutex_unlock(&philo->eat_lock);
-		put_routine(philo, i, DEAD);
+		pthread_mutex_unlock(&philo[i].eat_lock);
+		put_routine(philo, philo[i].id, DEAD);
 		pthread_mutex_lock(&philo->conf->mute[STATUS]);
 		philo->conf->death = true;
 		pthread_mutex_unlock(&philo->conf->mute[STATUS]);
@@ -78,7 +68,7 @@ static bool	check_death(time_t time, t_philo *philo, int i)
 	return (false);
 }
 
-static bool	stop_factors(time_t time, t_philo *philo)
+bool	stop_factors(time_t time, t_philo *philo)
 {
 	int	i;
 
@@ -93,20 +83,6 @@ static bool	stop_factors(time_t time, t_philo *philo)
 	return (false);
 }
 
-static int	start_philosophers(t_philo *philo)
-{
-	int	i;
-
-	i = -1;
-	while (++i < philo->conf->nbr_philo)
-	{
-		if (pthread_create(&philo[i].thread, NULL, &routine, &philo[i]) != 0)
-			return (putendl_error(THREAD_ERR));
-	}
-	return (SUCCEED);
-}
-
-// * We will have 2 mutexes shared between the watcher and the philosophers.
 int	watcher(t_philo *philo)
 {
 	time_t	time;
@@ -120,7 +96,6 @@ int	watcher(t_philo *philo)
 	{
 		if (stop_factors(time, philo) == true)
 			break ;
-		ft_usleep(1000);
 	}
 	return (0);
 }
