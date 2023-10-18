@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:02:36 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/10/17 18:59:53 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/10/18 14:43:09 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,10 @@ static bool	stop_factors(time_t time, t_philo *philo)
 
 	i = -1;
 	while (++i < philo->conf->nbr_philo)
+	{
 		if (check_death(time_now(time, get_time()), philo, i) == true)
 			return (true);
+	}
 	if (philo->conf->food_limit > 0)
 		return (all_philo_ate(philo));
 	return (false);

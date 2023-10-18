@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:13:32 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/10/17 19:12:46 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/10/18 14:35:20 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	putendl_error(char *error)
 
 int	unlock_fork(pthread_mutex_t *fork)
 {
-	if (pthread_mutex_unlock(fork) != 0)
+	if (pthread_mutex_unlock(fork) != SUCCEED)
 	{
 		putendl_error(UNLOCK_ERR);
 		return (FAILED);
@@ -40,9 +40,9 @@ int	unlock_fork(pthread_mutex_t *fork)
 	return (SUCCEED);
 }
 
-int	lock_fork(t_philo *philo, int philo_id, pthread_mutex_t *fork)
+int	lock_fork(t_philo *philo, pthread_mutex_t *fork)
 {
-	if (pthread_mutex_lock(fork) != 0)
+	if (pthread_mutex_lock(fork) != SUCCEED)
 	{
 		putendl_error(LOCK_ERR);
 		return (FAILED);

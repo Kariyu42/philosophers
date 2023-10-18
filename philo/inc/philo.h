@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:37:36 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/10/17 17:30:06 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/10/18 14:23:34 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ time_t	get_time(void);
 time_t	time_now(time_t origin, time_t current);
 
 /* --- TOOLS --- */
-int		manage_mutex(t_settings *conf);
 bool	is_numeric(char *nbr);
 int		ft_atoi(char *nbr);
 int		ft_usleep(size_t milliseconds);
