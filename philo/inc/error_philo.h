@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:14:02 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/10/11 12:19:20 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/10/18 17:20:33 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # define LOCK_ERR "error: failed to lock mutex"
 # define UNLOCK_ERR "error: failed to unlock mutex"
 # define THREAD_ERR "error: thread creation failed"
+# define JOIN_ERR "error: pthread_join failure"
+# define DESTROY_ERR "error: mutex destroy failed"
 
 /* --- PARSING --- */
 # define ARG_ERR "error: wrong number of arguments"

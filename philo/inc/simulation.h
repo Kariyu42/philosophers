@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 10:59:57 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/10/18 14:31:19 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/10/18 15:12:29 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,12 @@
 /* --- ENUM --- */
 typedef enum e_type
 {
-	LEFT,
-	FIRST,
-	RIGHT,
-	FAILED,
 	FORK,
 	EAT,
 	SLEEP,
 	THINK,
-	DEAD
+	DEAD,
+	FAILED
 }	t_type;
 
 /* --- THREADS --- */
@@ -38,6 +35,6 @@ bool	sim_status(t_philo *philo);
 int		watcher(t_philo *philo);
 
 /* --- PRINT ---*/
-void	put_routine(t_philo *philo, int philo_id, int status);
+void	put_routine(t_philo *ph, int id, int status);
 
 #endif

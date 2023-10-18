@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:02:36 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/10/18 14:43:09 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:17:27 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,9 @@ static bool	check_death(time_t time, t_philo *philo, int i)
 	{
 		pthread_mutex_unlock(&philo->eat_lock);
 		put_routine(philo, i, DEAD);
+		pthread_mutex_lock(&philo->conf->mute[STATUS]);
+		philo->conf->death = true;
+		pthread_mutex_unlock(&philo->conf->mute[STATUS]);
 		return (true);
 	}
 	pthread_mutex_unlock(&philo[i].eat_lock);
@@ -109,7 +112,7 @@ int	watcher(t_philo *philo)
 	time_t	time;
 
 	time = philo->conf->base_time;
-	if (start_philosophers(philo) < 0)
+	if (start_philosophers(philo) != SUCCEED)
 		return (-1);
 	if (lonely_philo(philo) == true)
 		return (0);

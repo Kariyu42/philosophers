@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 16:27:24 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/10/17 12:56:23 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/10/18 17:15:13 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,7 @@ int	init_prog(int ac, char **av)
 		return (putendl_error(ALLOC_ERR));
 	if (mutex_handler(conf) != SUCCEED)
 		return (putendl_error(MUTEX_ERR));
-	if (watcher(philo) < 0)
+	if (watcher(philo) != 0 || end_sim(conf, philo) != 0)
 		return (-1);
-	end_sim(conf, philo);
 	return (SUCCEED);
 }
